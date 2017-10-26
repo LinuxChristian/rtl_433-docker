@@ -5,7 +5,22 @@ Usage
 ================
 Standard build
 
- git clone https://github.com/LinuxChristian/rtl_433-docker.git
- cd rtl_433-docker/
- docker build -t rtl_433 .
- docker run -d --name rtl_433 -e mqtt_ip='10.0.0.1' -e mqtt_pass='password' -e mqtt_port='8123' rtl_433
+.. code-block:: bash
+
+    git clone https://github.com/LinuxChristian/rtl_433-docker.git
+    cd rtl_433-docker/
+    docker build -t rtl_433 .
+    docker run -d --name rtl_433 -e mqtt_ip='10.0.0.1' -e mqtt_pass='password' -e mqtt_port='8123' rtl_433
+
+The following environmental variables are available,
+
++-----------------------+-----------------------------------------------------+
+| Name                  | Description                                         |
++=======================+=====================================================+
+| mqtt_ip               | IP address of MQTT server.                          |
++-----------------------+-----------------------------------------------------+
+| mqtt_pass             | Password for  MQTT server.                          |
+|                       | Default: 'password' means no password set           |
++-----------------------+-----------------------------------------------------+
+| mqtt_port             | Port of MQTT server.                                |
++-----------------------+-----------------------------------------------------+
