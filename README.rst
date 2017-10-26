@@ -1,5 +1,6 @@
-# rtl_433-docker
-A stateless container for the rtl_433 project
+rtl_433-docker
+###############
+A stateless container for hosting RTL software defined radio (SDR) projects. The container must have a SDR dongle attached. All signal that are received and decoded will be send over the MQTT (machine-to-machine) protocol to any devices listening.
 
 Usage
 ================
