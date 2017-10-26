@@ -25,3 +25,7 @@ The following environmental variables are available,
 +-----------------------+-----------------------------------------------------+
 | mqtt_port             | Port of MQTT server.                                |
 +-----------------------+-----------------------------------------------------+
+
+Credits
+========
+MQTT event script largely inspired by work from @kajksa.
