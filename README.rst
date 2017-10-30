@@ -11,19 +11,38 @@ Standard build
     git clone https://github.com/LinuxChristian/rtl_433-docker.git
     cd rtl_433-docker/
     docker build -t rtl_433 .
-    docker run -d --name rtl_433 -e mqtt_ip='10.0.0.1' -e mqtt_pass='password' -e mqtt_port='8123' rtl_433
+
+
+Attaching the dongle
+ * Find the RTL-SDR dongle usb bus address
+
+.. code-block:: bash
+    #~ lsusb
+    .
+    .
+    Bus 003 Device 006: ID 0bda:2838 Realtek Semiconductor Corp. RTL2838 DVB-T
+    .
+    .
+    
+    docker run -d --name rtl_433 --device=/dev/bus/usb/003/006 -e MQTT_IP='10.0.0.1' rtl_433
 
 The following environmental variables are available,
 
 +-----------------------+-----------------------------------------------------+
 | Name                  | Description                                         |
 +=======================+=====================================================+
-| mqtt_ip               | IP address of MQTT server.                          |
+| MQTT_IP               | IP address of MQTT server.                          |
+|                       | Default: 127.0.0.1                                  |
 +-----------------------+-----------------------------------------------------+
-| mqtt_pass             | Password for  MQTT server.                          |
-|                       | Default: 'password' means no password set           |
+| MQTT_PASS             | Password for  MQTT server.                          |
+|                       | Default: No password                                |
+|                       | Format: {‘username’:”<usr>”,‘password’:”<pass>”}    |
 +-----------------------+-----------------------------------------------------+
-| mqtt_port             | Port of MQTT server.                                |
+| MQTT_PORT             | Port of MQTT server.                                |
+|                       | Default: 1883                                       |
++-----------------------+-----------------------------------------------------+
+| MQTT_DEBUG            | Show debug inforation.                              |
+|                       | Default: True                                       |
 +-----------------------+-----------------------------------------------------+
 
 Credits

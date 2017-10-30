@@ -20,15 +20,15 @@ sleep_time = 0.1
 outdoor_conditions = ['98a99d53dba2239f8b6214764b025fac', None, None, None]
     
 config = {
-        'host': os.environ['mqtt_ip'],
-        'port':os.environ['mqtt_port'],
+        'host': os.getenv('MQTT_IP', '127.0.0.1'),
+        'port':int(os.getenv('MQTT_PORT', 1883)),
+        'auth':os.getenv('MQTT_AUTH', None),
         'command': ['/usr/local/bin/rtl_433', '-F', 'json'] + ['-R {}'.format(d) for d in rtl_devices] + ['-l {}'.format(level)],
-        'debug': True,
+        'debug': os.getenv('MQTT_DEBUG', True),
 }
 
-if os.environ['mqtt_pass'] != 'password':
-        config['password'] = os.environ['mqtt_pass']
-
+if config['debug']:
+        print(config)
 
 def on_connect(mosq, obj, rc):
         print("rc: " + str(rc))
@@ -106,9 +106,7 @@ def process_events(events):
                         event['outdoor_rel_diff'] = 0
 
         msgs.append(("rtl433/{}".format(hash_string(device_id.encode())), json.dumps(event), qos, retain))
-        publish.multiple(msgs, hostname="localhost", protocol=4)
-#        mqttc.publish("rtl433/" + hash_string(device_id.encode()), e, protocol = 4)
-#        remote.set_state(api, 'sensor.rtl_433_' + hash_string(device_id.encode()), new_state=event['state'], attributes=event)
+        publish.multiple(msgs, hostname=config['host'], port=config['port'], auth=config['auth'], protocol=4)
 
         if config['debug']:
             print("INFO: {}/{}: {}".format(event_id, hash_string(device_id.encode()), event))

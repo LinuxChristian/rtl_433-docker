@@ -15,9 +15,4 @@ COPY utils.py .
 # Build rtl_433
 RUN ./build.sh
 
-# MQTT env variables
-ENV mqtt_ip=192.168.1.100
-ENV mqtt_pass=password
-ENV mqtt_port=8123
-
 CMD python3 rtl_433_events.py
