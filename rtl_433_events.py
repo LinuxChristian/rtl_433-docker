@@ -11,14 +11,14 @@ import paho.mqtt.publish as publish
 
 from utils import *
 
-rtl_devices = [12, 50, 29]
+rtl_devices = [12, 51, 29]
 
 level = 0 # 8000 default, 0 auto
 sleep_time = 0.1
 
 # Custom hash for outdoor sensor
 outdoor_conditions = ['6afa8b54614f4779770c3158c0efdb3c', None, None, None]
-    
+
 config = {
         'host': os.getenv('MQTT_IP', '127.0.0.1'),
         'port':int(os.getenv('MQTT_PORT', 1883)),
@@ -76,7 +76,7 @@ def process_events(events):
         qos = 2
         retain = 1
         msgs = []
-        if "Weather Sensor THGR810" == event['model']:
+        if "THGR810" == event['model']:
                 T  = event['temperature_C']
                 RH = event['humidity']/100.0
                 event['dew_point'] = dew_point(T, RH)
