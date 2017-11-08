@@ -17,7 +17,7 @@ level = 0 # 8000 default, 0 auto
 sleep_time = 0.1
 
 # Custom hash for outdoor sensor
-outdoor_conditions = ['98a99d53dba2239f8b6214764b025fac', None, None, None]
+outdoor_conditions = ['6afa8b54614f4779770c3158c0efdb3c', None, None, None]
     
 config = {
         'host': os.getenv('MQTT_IP', '127.0.0.1'),
@@ -55,18 +55,11 @@ def dew_point(T,RH):
     Pw = vapour_saturation_pressure(T)*RH
     return Tn/((m/np.log10(Pw/A)-1))
 
-#api = remote.API(config['host'], config['password'], port=config['port'])
-#api = remote.API(config['host'], port=config['port'])
-
-#mqttc = mosquitto.Mosquitto()
-#mqttc.on_connect = on_connect
-#mqttc.on_publish = on_publish
-#mqttc.on_message = on_message
-
 def process_events(events):
     global outdoor_conditions
     events = uniqify(events) # Make events unique maintaining order
     for e in events:
+
         try:
             event = json.loads(e)
             if 'channel' in event:
