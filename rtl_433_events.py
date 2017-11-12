@@ -62,13 +62,12 @@ def process_events(events):
 
         try:
             event = json.loads(e)
+            device_id = "{}{}".format(event['model'], event['id'])
             if 'channel' in event:
-                    device_id = "{}{}{}".format(event['model'], event['id'], event['channel'])
-            elif 'unit' in event:
-                    device_id = "{}{}{}".format(event['model'], event['id'], event['unit'])
-#                    print('unit: {}'.format(unit))
-            else:
-                    device_id = "{}{}".format(event['model'], event['id'])
+                    device_id = "{}{}".format(device_id, event['channel'])
+            if 'unit' in event:
+                    device_id = "{}{}".format(device_id, event['unit'])
+            
             event_id = hash_string(e.encode())
         except ValueError:
             print("WARNING: Received non-json data from rtl_433: {}".format(e))
