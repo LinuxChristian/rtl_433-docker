@@ -17,7 +17,7 @@ level = 0 # 8000 default, 0 auto
 sleep_time = 0.1
 
 # Custom hash for outdoor sensor
-outdoor_conditions = ['6afa8b54614f4779770c3158c0efdb3c', None, None, None]
+outdoor_conditions = ['5dee7bb95f3c0462383a974af5d24388', None, None, None]
 
 config = {
         'host': os.getenv('MQTT_IP', '127.0.0.1'),
